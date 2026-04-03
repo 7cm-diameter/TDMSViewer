@@ -1,0 +1,25 @@
+[project]
+name = "tdms-viewer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "nptdms>=1.10.0",
+    "numpy>=2.4.4",
+    "pandas>=3.0.2",
+    "pyqt6>=6.11.0",
+    "pyqtgraph>=0.14.0",
+    "pyyaml>=6.0.3",
+]
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "isort>=8.0.1",
+    "python-language-server[all]>=0.36.2",
+    "yapf>=0.43.0",
+]
