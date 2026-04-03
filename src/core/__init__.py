@@ -1,3 +1,6 @@
+from pathlib import Path
+from typing import Any
+
 import numpy as np
 import pandas as pd
 from pandas import DataFrame, concat
@@ -136,3 +139,14 @@ def as_binary_dataframe(ds: DataSource, cols: list[str], setting: TDMSSettings, 
         out = DataFrame(columns=["event", "time"])
 
     return out
+
+def load_settings_yaml(path: str | Path = "./default.yaml") -> dict[str, Any] | None:
+    path = Path(path)
+    if not path.exists():
+        return None
+
+    with path.open("r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    return data
+

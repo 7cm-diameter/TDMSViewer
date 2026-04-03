@@ -6,18 +6,6 @@ from nptdms import TdmsFile
 from pandas import DataFrame
 from PyQt6 import QtCore, QtWidgets
 
-
-def load_settings_yaml(path: str | Path = "./default.yaml") -> dict[str, Any] | None:
-    path = Path(path)
-    if not path.exists():
-        return None
-
-    with path.open("r", encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-
-    return data
-
-
 class TDMSActionPanel(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
