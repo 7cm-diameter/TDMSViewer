@@ -340,7 +340,7 @@ class TDMSViewer(QtWidgets.QApplication):
 
         self.override_apply_event_count()
 
-if __name__ == '__main__':
+def main():
     import sys
 
     df = make_dummy_df(N=300_000, fs=1000)
