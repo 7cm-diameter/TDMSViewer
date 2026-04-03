@@ -7,13 +7,16 @@
 依存関係のインストールや実行には `uv` を使用してください。
 
 まず、各自の環境に `uv` をインストールしてください。  
-インストール方法は公式ドキュメントを参照してください。  
-https://docs.astral.sh/uv/
+インストール方法は[公式ドキュメント](https://docs.astral.sh/uv/)を参照してください。  
 
-### `uv`インストール後
+もしも`git`が各自の環境になければ、あらかじめインストールしてください。
+インストール方法は[公式ドキュメント](https://git-scm.com/install/linux)を参照してください。
+
+### `uv`と`git`のインストール後
+
 ターミナル上で以下のコマンドを実行します。
 ```
-git clone <repository-url> TDMSViewer
+git clone https://github.com/7cm-diameter/TDMSViewer TDMSViewer
 cd TDMSViewer
 ```
 
