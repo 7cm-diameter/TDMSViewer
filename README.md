@@ -19,7 +19,7 @@
 
 ターミナル上で以下のコマンドを実行します。
 ```
-git clone https://github.com/7cm-diameter/TDMSViewer TDMSViewer
+git clone https://github.com/SomeKindOfDuck/TDMSViewer TDMSViewer
 cd TDMSViewer
 ```
 
