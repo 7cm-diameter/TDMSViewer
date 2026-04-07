@@ -286,6 +286,20 @@ class TDMSViewer(QtWidgets.QApplication):
         colors = self.analog_plot.colors
         new_panel = TDMSSettingPanel(settings=self.settings, cols=cols, colors=colors)
 
+        new_panel = TDMSSettingPanel(settings=self.settings, cols=cols, colors=colors)
+        if (default_settings := load_settings_yaml()) is not None:
+            if (visibility := default_settings.get("visible")) is not None:
+                default_cols = list(visibility.keys())
+                if default_cols == cols:
+                    self.settings.apply_settings_dict(default_settings)
+                    new_panel.sync_all_from_settings()
+                else:
+                    QtWidgets.QMessageBox.information(
+                        self.window,
+                        "Load setting error",
+                        "デフォルト値とは異なる構造のデータフレームです。"
+                    )
+
         layout = self.right_panel.layout()
         old_panel = self.setting_panel
         layout.replaceWidget(old_panel, new_panel)
