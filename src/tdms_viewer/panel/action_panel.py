@@ -97,7 +97,7 @@ class TDMSActionPanel(QtWidgets.QWidget):
     def tdms_to_dataframe(
         tdms: TdmsFile,
         selected_channels: list[str],
-        max_length_diff: int = 1,
+        max_length_diff: int = 2000,
     ) -> DataFrame:
         channels = [
             tdms[group][channel]
