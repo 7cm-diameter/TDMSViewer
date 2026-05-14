@@ -293,7 +293,7 @@ class TDMSViewer(QtWidgets.QApplication):
         if (default_settings := load_settings_yaml()) is not None:
             if (visibility := default_settings.get("visible")) is not None:
                 default_cols = list(visibility.keys())
-                if default_cols == cols:
+                if set(default_cols) == set(cols):
                     self.settings.apply_settings_dict(default_settings)
                     new_panel.sync_all_from_settings()
                 else:
