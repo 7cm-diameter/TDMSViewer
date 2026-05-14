@@ -93,17 +93,6 @@ class TDMSActionPanel(QtWidgets.QWidget):
                 channel_names.append(f"{group.name}/{ch.name}")
         return channel_names
 
-    # @staticmethod
-    # def tdms_to_dataframe(tdms: TdmsFile, selected_channels: list[str]) -> DataFrame:
-    #     data = {}
-
-    #     for full_name in selected_channels:
-    #         group_name, channel_name = full_name.split("/", 1)
-    #         ch = tdms[group_name][channel_name]
-    #         data[channel_name] = ch[:]
-
-    #     return DataFrame(data)
-
     @staticmethod
     def tdms_to_dataframe(
         tdms: TdmsFile,
