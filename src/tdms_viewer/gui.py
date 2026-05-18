@@ -121,8 +121,9 @@ class TDMSViewer(QtWidgets.QApplication):
         path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self.window,
             "Load TDMS",
-            "./",
-            "TDMS files (*.tdms);;All files (*)"
+            str(Path.cwd()),
+            "TDMS files (*.tdms);;All files (*)",
+            options=QtWidgets.QFileDialog.Option.DontUseNativeDialog
         )
         if not path:
             return
