@@ -35,6 +35,15 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Output directory for analyzed CSV file(s)",
     )
+    parser.add_argument(
+        "--exclude-events",
+        "-x",
+        nargs="*",
+        default=[],
+        help=(
+            "Event names to exclude from the output CSV."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -60,7 +69,21 @@ def main() -> None:
         setting = TDMSSettings()
         setting.apply_settings_dict(param_dict)
 
-        binary_data = as_binary_dataframe(ds, ds.cols, setting)
+        excluded_events = set(args.exclude_events)
+
+        export_cols = [
+            col for col in ds.cols
+            if col not in excluded_events
+        ]
+
+        missing_events = excluded_events - set(ds.cols)
+        if missing_events:
+            print(
+                "[WARN] Excluded event(s) not found in TDMS columns: "
+                + ", ".join(sorted(missing_events))
+            )
+
+        binary_data = as_binary_dataframe(ds, export_cols, setting)
 
         counts = binary_data.value_counts("event")
         on_counts = counts[counts.index.str.endswith("-on")]
