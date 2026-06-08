@@ -21,7 +21,7 @@ def add_event_segment_number(
     out = df.copy()
     out = out.sort_values(time_col).reset_index(drop=True)
 
-    onset_event = f"{base_event_name}-on"
+    onset_event = f"{base_event_name}"
     onset_times = out.loc[out[event_col] == onset_event, time_col].to_numpy()
 
     if len(onset_times) == 0:
