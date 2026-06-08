@@ -17,21 +17,34 @@ def parse_args() -> argparse.Namespace:
             "based on its onset times."
         )
     )
-    parser.add_argument("tdms",
+    parser.add_argument(
+        "tdms",
         type=Path,
         nargs="+",
-        help="Input TDMS file(s)"
+        help="Input TDMS file(s)",
     )
-    parser.add_argument("yaml",
-                        type=Path,
-                        default=Path("./default.yaml"),
-                        help="Parameter setting for analyze TDMS file(s)")
+    parser.add_argument(
+        "yaml",
+        type=Path,
+        help="Parameter setting for analyze TDMS file(s)",
+    )
+    parser.add_argument(
+        "--output",
+        "-o",
+        type=Path,
+        default=None,
+        help="Output directory for analyzed CSV file(s)",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
-
     args = parse_args()
+
+    output_dir: Path | None = args.output
+
+    if output_dir is not None:
+        output_dir.mkdir(parents=True, exist_ok=True)
 
     for tdms_path in args.tdms:
         tdms_data = TdmsFile.read(tdms_path)
@@ -43,11 +56,18 @@ def main() -> None:
         param_dict = load_settings_yaml(args.yaml)
         if param_dict is None:
             raise ValueError(f"{args.yaml} must be specified!")
+
         setting = TDMSSettings()
         setting.apply_settings_dict(param_dict)
 
         binary_data = as_binary_dataframe(ds, ds.cols, setting)
-        output_path = tdms_path.with_name(tdms_path.stem + "_binary.csv")
+
+        counts = binary_data.value_counts("event")
+        on_counts = counts[counts.index.str.endswith("-on")]
+        print(on_counts)
+
+        save_dir = output_dir if output_dir is not None else tdms_path.parent
+        output_path = save_dir / f"{tdms_path.stem}_binary.csv"
 
         binary_data.to_csv(output_path, index=False)
         print(f"[OK] {tdms_path} -> {output_path}")
